@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超级王牌 - 段位展示</title>
+    <style>
+        /* --- 全局样式 --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', 'Heiti SC', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- 卡片容器 --- */
+        .rank-card {
+            width: 420px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border: 2px solid #ffcc00;
+            text-align: center;
+            padding-bottom: 30px;
+        }
+
+        /* --- 徽章动画区域 --- */
+        .badge-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: -40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* --- 徽章主体 --- */
+        .badge {
+            width: 100%;
+            height: 100%;
+            background-size: cover; /* 改为cover，让图片填满容器 */
+            background-position: center;
+            position: relative;
+            z-index: 1;
+            border-radius: 10px; /* 给图片加个圆角，更好看 */
+        }
+
+        /* --- 火焰特效 --- */
+        .fire-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,140,0,0.8) 0%, rgba(255,69,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.6;
+            z-index: 0;
+            animation: pulse 4s infinite alternate;
+        }
+
+        /* --- 段位标题 --- */
+        .rank-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffcc00;
+            text-shadow: 0 0 10px #ff4500, 0 0 20px #ff8c00;
+            letter-spacing: 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        /* --- 边框装饰 --- */
+        .decoration {
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ffcc00, transparent);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* --- 玩家信息 --- */
+        .player-info {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .uid {
+            color: #888;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        /* --- 胜率标签 --- */
+        .win-rate {
+            background: rgba(255, 0, 0, 0.3);
+            color: #ff4500;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-top: 15px;
+            border: 1px solid #ff6b6b;
+            display: inline-block;
+        }
+
+        /* --- 动画定义 --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 段位卡片 -->
+    <div class="rank-card">
+        
+        <!-- 火焰背景层 -->
+        <div class="fire-effect"></div>
+
+        <!-- 徽章展示区 -->
+        <div class="badge-container">
+            <div class="badge" id="badgeImage"></div>
+        </div>
+
+        <!-- 段位名称 -->
+        <div class="rank-title">
+            超级王牌
+        </div>
+
+        <!-- 装饰线 -->
+        <div class="decoration"></div>
+
+        <!-- 玩家数据 -->
+        <div class="player-info">
+            战神玩家 · 极限竞技场
+        </div>
+        <div class="uid">
+            UID: 88888888
+        </div>
+
+        <!-- 胜率标签 -->
+        <div class="win-rate">
+            <i class="fas fa-trophy"></i> 胜率 85%
+        </div>
+
+    </div>
+
+    <!-- ✅ 这是新加的脚本，用来轮播你的两张本地图片 -->
+    <script>
+        // 1. 定义你的两张图片文件名（确保文件名完全一样，包括后缀）
+        const images = [
+            '58a253ecb8b5d5f2dd3ca172e5aeed5e.jpg',
+            'd293a8a2c49d2692fcae4a84aec4c36f.jpg'
+        ];
+        
+        let index = 0; // 当前显示第几张
+
+        // 2. 每隔 3 秒切换一次图片
+        setInterval(() => {
+            // 获取网页中的徽章 div
+            const badgeDiv = document.getElementById('badgeImage');
+            // 修改它的背景图片
+            badgeDiv.style.backgroundImage = `url('${images[index]}')`;
+            
+            // 切换到下一张（0变1，1变0）
+            index = (index + 1) % images.length;
+        }, 3000); // 3000 毫秒 = 3 秒
+    </script>
+
+</body>
+</html>
